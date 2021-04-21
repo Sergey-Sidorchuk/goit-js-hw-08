@@ -41,10 +41,11 @@ function createGalleryMarkup(galleryList) {
 
 // Модалка
 function toOpenModal(event) {
-    window.addEventListener('keydown', onEscapeKeyPress);
     if (!event.target.classList.contains('gallery__image')) {
-        return;
-};
+        return;     
+    };
+    window.addEventListener('keydown', onEscapeKeyPress);
+    
     event.preventDefault()
     refs.modal.classList.add('is-open');
 refs.modalImg.setAttribute('src', event.target.getAttribute('data-source'));
@@ -56,12 +57,10 @@ function toCloseModal() {
 }
 
 function closeModal(event) {
-    if (event.target.classList.contains('lightbox__overlay')) {
+    if (event.target.classList.contains('lightbox__overlay') || event.target.classList.contains('lightbox__button')) {
         toCloseModal();
     }
-    if(event.target.classList.contains('lightbox__button')) {
-    toCloseModal();
-  };
+    window.removeEventListener('keydown', onEscapeKeyPress);
 }
 
 function onEscapeKeyPress(event) {
